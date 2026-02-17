@@ -1,2 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Roboto", "sans-serif";
+  --font-montserrat: "Montserrat", "sans-serif";
+  --font-krona: "Krona One", "sans-serif";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
