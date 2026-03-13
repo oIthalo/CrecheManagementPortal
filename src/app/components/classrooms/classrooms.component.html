@@ -2,22 +2,37 @@
   <div class="max-w-6xl mx-auto flex flex-col gap-10">
     <header class="flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-slate-800">Minhas Creches</h1>
+        <h1 class="text-3xl font-bold text-slate-800">Salas de Aula</h1>
         <p class="text-slate-500 mt-1">
-          Gerencie as creches que você possui acesso
+          Gerencie as salas da creche selecionada
         </p>
       </div>
 
-      <button
-        class="bg-linear-to-r from-indigo-600 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition cursor-pointer"
-      >
-        Nova Creche
-      </button>
+      <div class="flex items-end gap-4">
+        <div class="flex flex-col">
+          <label class="text-xs text-slate-500 mb-1">Ano letivo</label>
+
+          <input
+            type="number"
+            [(ngModel)]="selectedYear"
+            min="2000"
+            [max]="maxYear"
+            class="w-28 bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+
+        <button
+          class="bg-linear-to-r from-indigo-600 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition cursor-pointer flex items-center gap-2"
+        >
+          <lucide-icon [name]="plusIcon"></lucide-icon>
+          Nova Sala
+        </button>
+      </div>
     </header>
 
     <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
       <div
-        *ngFor="let creche of creches"
+        *ngFor="let classroom of classrooms"
         class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex flex-col justify-between"
       >
         <div class="flex items-start gap-4">
@@ -32,27 +47,20 @@
 
           <div class="flex flex-col flex-1">
             <h2 class="text-lg font-semibold text-slate-800">
-              {{ creche.name }}
+              {{ classroom.name }}
             </h2>
 
             <p class="text-sm text-slate-500">
-              {{ creche.email }}
+              Ano letivo {{ classroom.year }}
             </p>
           </div>
         </div>
 
         <div class="flex flex-col gap-2 text-sm text-slate-600 mt-6">
           <div class="flex items-center gap-2">
-            <lucide-icon [name]="phoneIcon" size="18"></lucide-icon>
-            <span>{{ creche.contactNumber }}</span>
-          </div>
+            <lucide-icon [name]="usersIcon" size="18"></lucide-icon>
 
-          <div class="flex items-start gap-2">
-            <lucide-icon [name]="mapPinIcon" size="18"></lucide-icon>
-            <span>
-              {{ creche.address.street }}, {{ creche.address.number }} <br />
-              {{ creche.address.city }} - {{ creche.address.state }}
-            </span>
+            <span> {{ classroom.students.length }} alunos </span>
           </div>
         </div>
 
@@ -60,7 +68,7 @@
           <button
             class="px-4 py-2 rounded-lg text-indigo-700 font-semibold hover:bg-indigo-50 transition flex items-center gap-2 cursor-pointer"
           >
-            Entrar
+            Ver alunos
             <lucide-icon [name]="arrowRightIcon" size="18"></lucide-icon>
           </button>
         </div>

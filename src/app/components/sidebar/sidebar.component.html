@@ -1,6 +1,6 @@
 <aside
-  class="font-poppins sticky top-0 h-screen max-h-screen border-r-slate-300 shadow-lg flex flex-col transition-all duration-300"
-  [ngClass]="sidebarOpened ? 'w-70 md:w-80' : 'w-20 items-center'"
+  class="font-poppins fixed md:shrink-0 top-0 left-0 z-40 h-screen border-r border-slate-300 shadow-lg flex flex-col bg-white transition-all duration-300 -translate-x-full md:translate-x-0"
+  [ngClass]="sidebarOpened ? 'w-72 translate-x-0' : 'w-20'"
 >
   <header
     class="flex items-center border-b border-slate-400 pt-3 pb-3 w-full"
@@ -52,18 +52,11 @@
             routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg text-white"
             class="flex items-center rounded-md text-gray-600 hover:text-white hover:bg-linear-to-r hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transition"
             [ngClass]="
-              sidebarOpened
-                ? 'gap-3 w-full p-3 justify-start'
-                : 'justify-center w-12 h-12'
+              sidebarOpened ? 'gap-3 w-full p-3' : 'justify-center w-12 h-12'
             "
           >
             <lucide-icon [name]="schoolIcon"></lucide-icon>
-            <span
-              class="transition-all duration-200 whitespace-nowrap"
-              [class.hidden]="!sidebarOpened"
-            >
-              Minhas Creches
-            </span>
+            <span [class.hidden]="!sidebarOpened">Minhas Creches</span>
           </a>
 
           <a
@@ -71,62 +64,41 @@
             routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg text-white"
             class="flex items-center rounded-md text-gray-600 hover:text-white hover:bg-linear-to-r hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transition"
             [ngClass]="
-              sidebarOpened
-                ? 'gap-3 w-full p-3 justify-start'
-                : 'justify-center w-12 h-12'
+              sidebarOpened ? 'gap-3 w-full p-3' : 'justify-center w-12 h-12'
             "
             [class.pointer-events-none]="!selectedCreche"
             [class.opacity-40]="!selectedCreche"
           >
             <lucide-icon [name]="layoutDashboardIcon"></lucide-icon>
-            <span
-              class="transition-all duration-200 whitespace-nowrap"
-              [class.hidden]="!sidebarOpened"
-            >
-              Visão Geral
-            </span>
+            <span [class.hidden]="!sidebarOpened">Visão Geral</span>
           </a>
 
           <a
-            routerLink="/dashboard"
+            routerLink="/classrooms"
             routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg text-white"
             class="flex items-center rounded-md text-gray-600 hover:text-white hover:bg-linear-to-r hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transition"
             [ngClass]="
-              sidebarOpened
-                ? 'gap-3 w-full p-3 justify-start'
-                : 'justify-center w-12 h-12'
+              sidebarOpened ? 'gap-3 w-full p-3' : 'justify-center w-12 h-12'
             "
             [class.pointer-events-none]="!selectedCreche"
             [class.opacity-40]="!selectedCreche"
           >
             <lucide-icon [name]="schoolIcon"></lucide-icon>
-            <span
-              class="transition-all duration-200 whitespace-nowrap"
-              [class.hidden]="!sidebarOpened"
-            >
-              Salas de aula
-            </span>
+            <span [class.hidden]="!sidebarOpened">Salas de aula</span>
           </a>
 
           <a
-            routerLink="/dashboard"
+            routerLink="/students"
             routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg text-white"
             class="flex items-center rounded-md text-gray-600 hover:text-white hover:bg-linear-to-r hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transition"
             [ngClass]="
-              sidebarOpened
-                ? 'gap-3 w-full p-3 justify-start'
-                : 'justify-center w-12 h-12'
+              sidebarOpened ? 'gap-3 w-full p-3' : 'justify-center w-12 h-12'
             "
             [class.pointer-events-none]="!selectedCreche"
             [class.opacity-40]="!selectedCreche"
           >
             <lucide-icon [name]="usersIcon"></lucide-icon>
-            <span
-              class="transition-all duration-200 whitespace-nowrap"
-              [class.hidden]="!sidebarOpened"
-            >
-              Alunos
-            </span>
+            <span [class.hidden]="!sidebarOpened">Alunos</span>
           </a>
         </div>
       </div>
@@ -148,20 +120,13 @@
             routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg text-white"
             class="flex items-center rounded-md text-gray-600 hover:text-white hover:bg-linear-to-r hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transition"
             [ngClass]="
-              sidebarOpened
-                ? 'gap-3 w-full p-3 justify-start'
-                : 'justify-center w-12 h-12'
+              sidebarOpened ? 'gap-3 w-full p-3' : 'justify-center w-12 h-12'
             "
             [class.pointer-events-none]="!selectedCreche"
             [class.opacity-40]="!selectedCreche"
           >
             <lucide-icon [name]="calendarIcon"></lucide-icon>
-            <span
-              class="transition-all duration-200 whitespace-nowrap"
-              [class.hidden]="!sidebarOpened"
-            >
-              Frequência
-            </span>
+            <span [class.hidden]="!sidebarOpened">Frequência</span>
           </a>
 
           <a
@@ -169,20 +134,13 @@
             routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg text-white"
             class="flex items-center rounded-md text-gray-600 hover:text-white hover:bg-linear-to-r hover:from-blue-700 hover:to-indigo-800 hover:shadow-lg transition"
             [ngClass]="
-              sidebarOpened
-                ? 'gap-3 w-full p-3 justify-start'
-                : 'justify-center w-12 h-12'
+              sidebarOpened ? 'gap-3 w-full p-3' : 'justify-center w-12 h-12'
             "
             [class.pointer-events-none]="!selectedCreche"
             [class.opacity-40]="!selectedCreche"
           >
             <lucide-icon [name]="walletIcon"></lucide-icon>
-            <span
-              class="transition-all duration-200 whitespace-nowrap"
-              [class.hidden]="!sidebarOpened"
-            >
-              Financeiro
-            </span>
+            <span [class.hidden]="!sidebarOpened">Financeiro</span>
           </a>
         </div>
       </div>

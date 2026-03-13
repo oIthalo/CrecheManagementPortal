@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { User } from '../../models/user.models';
 import {
@@ -26,7 +26,7 @@ import {  Router, RouterModule } from "@angular/router";
   ],
   templateUrl: './sidebar.component.html'
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   readonly textAlignJustifyIcon = TextAlignJustify
   readonly layoutDashboardIcon = LayoutDashboard
   readonly usersIcon = Users
@@ -38,9 +38,9 @@ export class SidebarComponent implements OnInit {
   readonly closeIcon = X
   readonly logoutIcon = LogOut
 
-  sidebarOpened: boolean = false
+  sidebarOpened: boolean = true
   darkMode: boolean = false
-  selectedCreche: boolean = false
+  selectedCreche: boolean = true
 
   user: User = {
     Username: "Ithalo Barreto",
@@ -48,14 +48,4 @@ export class SidebarComponent implements OnInit {
   }
 
   constructor(private _router: Router) { }
-
-  ngOnInit(): void {
-    this.navigateToCreches();
-  }
-
-  navigateToCreches() {
-    if (!this.sidebarOpened) {
-      this._router.navigate(["/creches"])
-    }
-  }
 }
