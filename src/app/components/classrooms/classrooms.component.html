@@ -1,28 +1,34 @@
-<div class="flex-1 p-10">
-  <div class="max-w-6xl mx-auto flex flex-col gap-10">
-    <header class="flex items-center justify-between">
+<div class="h-full">
+  <div class="max-w-6xl mx-auto flex flex-col gap-10 pb-10">
+    <header
+      class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+    >
       <div>
-        <h1 class="text-3xl font-bold text-slate-800">Salas de Aula</h1>
-        <p class="text-slate-500 mt-1">
+        <h1 class="text-2xl md:text-3xl font-bold text-slate-800">
+          Salas de Aula
+        </h1>
+        <p class="text-slate-500 mt-1 text-sm md:text-base">
           Gerencie as salas da creche selecionada
         </p>
       </div>
 
-      <div class="flex items-end gap-4">
-        <div class="flex flex-col">
-          <label class="text-xs text-slate-500 mb-1">Ano letivo</label>
+      <div
+        class="flex flex-col sm:flex-row sm:items-end gap-3 w-full md:w-auto"
+      >
+        <div class="flex flex-col w-full sm:w-auto">
+          <label class="text-xs text-slate-500 mb-1"> Ano letivo </label>
 
           <input
             type="number"
             [(ngModel)]="selectedYear"
             min="2000"
             [max]="maxYear"
-            class="w-28 bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            class="w-full sm:w-28 bg-white border border-slate-200 rounded-xl px-4 py-2 md:py-3 text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
 
         <button
-          class="bg-linear-to-r from-indigo-600 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition cursor-pointer flex items-center gap-2"
+          class="w-full sm:w-auto bg-linear-to-r from-indigo-600 to-blue-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl font-semibold shadow-md hover:shadow-lg active:scale-[0.98] transition flex items-center justify-center gap-2"
         >
           <lucide-icon [name]="plusIcon"></lucide-icon>
           Nova Sala

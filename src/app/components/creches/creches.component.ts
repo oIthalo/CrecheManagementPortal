@@ -17,8 +17,7 @@ import {
   imports: [
     LucideAngularModule,
     CommonModule,
-    RouterModule,
-    SidebarComponent
+    RouterModule
 ],
   templateUrl: './creches.component.html'
 })

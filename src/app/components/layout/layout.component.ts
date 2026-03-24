@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
 import { RouterModule } from "@angular/router";
-import { SidebarComponent } from "../sidebar/sidebar.component";
 
 import { LucideAngularModule, Menu } from "lucide-angular";
+import { SidebarComponent } from "../sidebar/sidebar.component";
+import { ButtonNavComponent } from "../botton-nav/botton-nav.component";
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterModule, SidebarComponent, LucideAngularModule],
+  imports: [
+    RouterModule,
+    LucideAngularModule,
+    SidebarComponent,
+    ButtonNavComponent
+],
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent {

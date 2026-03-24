@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { User } from '../../models/user.models';
 import {
@@ -14,8 +14,8 @@ import {
   Wallet,
   LogOut,
   X,
- } from 'lucide-angular';
-import {  Router, RouterModule } from "@angular/router";
+} from 'lucide-angular';
+import { Router, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
@@ -26,7 +26,7 @@ import {  Router, RouterModule } from "@angular/router";
   ],
   templateUrl: './sidebar.component.html'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   readonly textAlignJustifyIcon = TextAlignJustify
   readonly layoutDashboardIcon = LayoutDashboard
   readonly usersIcon = Users
@@ -41,11 +41,18 @@ export class SidebarComponent {
   sidebarOpened: boolean = true
   darkMode: boolean = false
   selectedCreche: boolean = true
-
   user: User = {
     Username: "Ithalo Barreto",
     Email: "ithalobarreto333@gmail.com",
   }
 
   constructor(private _router: Router) { }
+
+  isDesktop = window.innerWidth >= 768;
+
+  ngOnInit() {
+    window.addEventListener('resize', () => {
+      this.isDesktop = window.innerWidth >= 768;
+    });
+  }
 }

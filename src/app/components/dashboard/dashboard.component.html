@@ -1,0 +1,106 @@
+<div class="p-6 md:p-10">
+  <div class="max-w-7xl mx-auto flex flex-col gap-8">
+
+    <header class="flex flex-col gap-1">
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-800">
+        {{ creche.name }}
+      </h1>
+      <p class="text-slate-500 text-sm md:text-base">
+        Visão geral da creche
+      </p>
+    </header>
+
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+        <span class="text-sm text-slate-500">Alunos</span>
+        <p class="text-2xl font-bold text-slate-800 mt-1">
+          {{ dashboard.totalStudents }}
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+        <span class="text-sm text-slate-500">Salas</span>
+        <p class="text-2xl font-bold text-slate-800 mt-1">
+          {{ dashboard.totalClassrooms }}
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+        <span class="text-sm text-slate-500">Presentes hoje</span>
+        <p class="text-2xl font-bold text-green-600 mt-1">
+          {{ dashboard.presentToday }}
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+        <span class="text-sm text-slate-500">Faltas hoje</span>
+        <p class="text-2xl font-bold text-red-600 mt-1">
+          {{ dashboard.absentToday }}
+        </p>
+      </div>
+
+    </section>
+
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-slate-800">
+          Frequência hoje
+        </h2>
+
+        <span class="text-sm font-semibold text-indigo-600">
+          {{ dashboard.attendanceRate }}%
+        </span>
+      </div>
+
+      <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+        <div
+          class="h-full bg-linear-to-r from-indigo-600 to-blue-700 transition-all"
+          [style.width.%]="dashboard.attendanceRate"
+        ></div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+      <h2 class="text-lg font-semibold text-slate-800 mb-4">
+        Salas
+      </h2>
+
+      <div class="flex flex-col gap-3">
+
+        <div
+          *ngFor="let classroom of dashboard.classrooms"
+          class="flex items-center justify-between p-4 rounded-xl hover:bg-slate-50 transition"
+        >
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center">
+              <lucide-icon [name]="schoolIcon" class="text-indigo-700"></lucide-icon>
+            </div>
+
+            <div class="flex flex-col">
+              <span class="font-medium text-slate-800">
+                {{ classroom.name }}
+              </span>
+
+              <span class="text-xs text-slate-500">
+                {{ classroom.totalStudents }} alunos
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4 text-sm">
+            <span class="text-green-600 font-medium">
+              {{ classroom.present }}
+            </span>
+
+            <span class="text-red-500 font-medium">
+              {{ classroom.absent }}
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</div>

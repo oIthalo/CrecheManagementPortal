@@ -18,7 +18,6 @@ import { Classroom } from '../../models/classroom.models';
     LucideAngularModule,
     CommonModule,
     RouterModule,
-    SidebarComponent,
     FormsModule
   ],
   templateUrl: './students.component.html'

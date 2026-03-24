@@ -10,8 +10,8 @@ import {
   MapPin,
   Phone,
   LucideAngularModule,
- }
-from 'lucide-angular';
+}
+  from 'lucide-angular';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { ClassroomResponse } from '../../responses/classroom/classroom.response';
 import { FormsModule } from '@angular/forms';
@@ -22,9 +22,8 @@ import { FormsModule } from '@angular/forms';
     LucideAngularModule,
     CommonModule,
     RouterModule,
-    SidebarComponent,
     FormsModule
-],
+  ],
   templateUrl: './classrooms.component.html'
 })
 export class ClassroomsComponent {

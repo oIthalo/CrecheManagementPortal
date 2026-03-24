@@ -1,0 +1,50 @@
+<nav
+  class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 z-50"
+>
+  <div class="relative flex items-center justify-between px-4 h-16">
+    <a
+      routerLink="/creches"
+      routerLinkActive="text-indigo-600"
+      class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
+    >
+      <lucide-icon [name]="universityIcon" size="20"></lucide-icon>
+      <span>Creches</span>
+    </a>
+
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="text-indigo-600"
+      class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
+    >
+      <lucide-icon [name]="layoutDashboardIcon" size="20"></lucide-icon>
+      <span>Home</span>
+    </a>
+
+    <a
+      routerLink="/classrooms"
+      routerLinkActive="text-indigo-600"
+      class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
+    >
+      <lucide-icon [name]="schoolIcon" size="20"></lucide-icon>
+      <span>Salas</span>
+    </a>
+
+    <a
+      routerLink="/students"
+      routerLinkActive="text-indigo-600"
+      class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
+    >
+      <lucide-icon [name]="usersIcon" size="20"></lucide-icon>
+      <span>Alunos</span>
+    </a>
+
+    <a
+      routerLink="/attendances"
+      routerLinkActive="text-indigo-600"
+      class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
+    >
+      <lucide-icon [name]="calendarIcon" size="20"></lucide-icon>
+      <span>Frequência</span>
+    </a>
+  </div>
+</nav>
