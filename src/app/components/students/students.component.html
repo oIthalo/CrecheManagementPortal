@@ -1,0 +1,96 @@
+<div class="h-full">
+  <div class="max-w-6xl mx-auto flex flex-col gap-10 pb-10">
+    <header>
+      <h1 class="text-3xl font-bold text-slate-800">Alunos</h1>
+      <p class="text-slate-500 mt-1">
+        Visualize os alunos organizados por sala
+      </p>
+    </header>
+
+    <section class="flex flex-col gap-4">
+      <div
+        *ngFor="let classroom of classrooms"
+        class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden"
+      >
+        <div
+          (click)="classroom.open = !classroom.open"
+          class="flex items-center justify-between p-6 cursor-pointer hover:bg-slate-50 transition"
+        >
+          <div class="flex items-center gap-4">
+            <div
+              class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center"
+            >
+              <lucide-icon
+                [name]="schoolIcon"
+                class="text-indigo-700"
+              ></lucide-icon>
+            </div>
+
+            <div>
+              <h2 class="text-lg font-semibold text-slate-800">
+                {{ classroom.name }}
+              </h2>
+
+              <p class="text-sm text-slate-500">
+                {{ classroom.students.length || 0 }} alunos
+              </p>
+            </div>
+          </div>
+
+          <lucide-icon
+            [name]="chevronDownIcon"
+            class="text-slate-500"
+          ></lucide-icon>
+        </div>
+
+        <div *ngIf="classroom.open" class="border-t border-slate-200">
+          <div
+            *ngFor="let student of students"
+            class="flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-6 py-4 gap-3 hover:bg-slate-50 transition"
+          >
+            <div class="flex items-center gap-3 md:gap-4">
+              <div
+                class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-semibold"
+              >
+                {{ student.name.charAt(0) }}
+              </div>
+
+              <div class="flex flex-col min-w-0">
+                <span class="font-medium text-slate-800 truncate">
+                  {{ student.name }}
+                </span>
+
+                <span class="text-sm text-slate-500 truncate">
+                  Matrícula: {{ student.registrationId }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              class="flex flex-wrap md:flex-nowrap items-center gap-2 md:gap-6 text-xs md:text-sm text-slate-600"
+            >
+              <span>
+                {{ student.birthDate | date: "dd/MM/yyyy" }}
+              </span>
+
+              <span>
+                {{ student.gender }}
+              </span>
+
+              <span
+                class="px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap"
+                [ngClass]="
+                  student.active
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-red-100 text-red-700'
+                "
+              >
+                {{ student.active ? "Ativo" : "Inativo" }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

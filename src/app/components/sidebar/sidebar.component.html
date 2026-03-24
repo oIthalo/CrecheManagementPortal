@@ -1,0 +1,150 @@
+<aside
+  class="font-poppins fixed md:relative top-0 left-0 z-40 h-screen border-r border-slate-300 shadow-lg flex flex-col bg-white transition-all duration-300 overflow-hidden"
+  [ngClass]="{
+    'w-72': sidebarOpened,
+    'w-20': !sidebarOpened && isDesktop,
+    '-translate-x-full w-72': !sidebarOpened && !isDesktop,
+    'translate-x-0': sidebarOpened,
+  }"
+>
+  <header
+    class="flex items-center border-b border-slate-300 py-3 w-full"
+    [ngClass]="sidebarOpened ? 'justify-between px-4' : 'justify-center px-2'"
+  >
+    <div
+      class="overflow-hidden whitespace-nowrap min-w-0 transition-all duration-300"
+      [ngClass]="sidebarOpened ? 'opacity-100 w-full' : 'opacity-0 w-0'"
+    >
+      <h2 class="truncate text-lg font-semibold text-indigo-700">
+        {{ user.Username }}
+      </h2>
+      <p class="truncate text-sm text-gray-400">
+        {{ user.Email }}
+      </p>
+    </div>
+
+    <button (click)="sidebarOpened = !sidebarOpened">
+      <lucide-icon
+        [name]="sidebarOpened ? closeIcon : textAlignJustifyIcon"
+        size="28px"
+      />
+    </button>
+  </header>
+
+  <div class="flex flex-col flex-1 py-6 w-full">
+    <ul class="flex flex-col w-full px-2 gap-2">
+      <a
+        routerLink="/creches"
+        routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
+        [ngClass]="
+          sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
+        "
+      >
+        <lucide-icon [name]="schoolIcon"></lucide-icon>
+
+        <span
+          class="whitespace-nowrap transition-all duration-200"
+          [ngClass]="
+            sidebarOpened ? 'opacity-100 ml-1' : 'opacity-0 w-0 overflow-hidden'
+          "
+        >
+          Minhas Creches
+        </span>
+      </a>
+
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
+        [ngClass]="
+          sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
+        "
+      >
+        <lucide-icon [name]="layoutDashboardIcon"></lucide-icon>
+        <span
+          class="whitespace-nowrap transition-all duration-200"
+          [ngClass]="
+            sidebarOpened ? 'opacity-100 ml-1' : 'opacity-0 w-0 overflow-hidden'
+          "
+        >
+          Visão Geral
+        </span>
+      </a>
+
+      <a
+        routerLink="/classrooms"
+        routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
+        [ngClass]="
+          sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
+        "
+      >
+        <lucide-icon [name]="schoolIcon"></lucide-icon>
+        <span
+          class="whitespace-nowrap transition-all duration-200"
+          [ngClass]="
+            sidebarOpened ? 'opacity-100 ml-1' : 'opacity-0 w-0 overflow-hidden'
+          "
+        >
+          Salas de aula
+        </span>
+      </a>
+
+      <a
+        routerLink="/students"
+        routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
+        [ngClass]="
+          sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
+        "
+      >
+        <lucide-icon [name]="usersIcon"></lucide-icon>
+        <span
+          class="whitespace-nowrap transition-all duration-200"
+          [ngClass]="
+            sidebarOpened ? 'opacity-100 ml-1' : 'opacity-0 w-0 overflow-hidden'
+          "
+        >
+          Alunos
+        </span>
+      </a>
+
+      <a
+        routerLink="/attendances"
+        routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
+        [ngClass]="
+          sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
+        "
+      >
+        <lucide-icon [name]="calendarIcon"></lucide-icon>
+        <span
+          class="whitespace-nowrap transition-all duration-200"
+          [ngClass]="
+            sidebarOpened ? 'opacity-100 ml-1' : 'opacity-0 w-0 overflow-hidden'
+          "
+        >
+          Frequência
+        </span>
+      </a>
+    </ul>
+  </div>
+
+  <div class="border-t border-slate-300 p-3 flex justify-center">
+    <button
+      class="flex items-center justify-center gap-2 bg-indigo-700 text-white rounded-lg px-3 py-2 w-full"
+    >
+      <lucide-icon [name]="logoutIcon"></lucide-icon>
+
+      <span
+        class="whitespace-nowrap transition-all duration-200"
+        [ngClass]="
+          sidebarOpened ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden'
+        "
+      >
+        Logout
+      </span>
+    </button>
+  </div>
+</aside>
