@@ -16,6 +16,8 @@ import {
   X,
 } from 'lucide-angular';
 import { Router, RouterModule } from "@angular/router";
+import { AuthService } from '../../services/auth.service';
+import { CrechesService } from '../../services/creches.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -38,21 +40,39 @@ export class SidebarComponent implements OnInit {
   readonly closeIcon = X
   readonly logoutIcon = LogOut
 
-  sidebarOpened: boolean = true
-  darkMode: boolean = false
-  selectedCreche: boolean = true
-  user: User = {
-    Username: "Ithalo Barreto",
-    Email: "ithalobarreto333@gmail.com",
-  }
-
-  constructor(private _router: Router) { }
-
   isDesktop = window.innerWidth >= 768;
+  sidebarOpened: boolean = false
+  darkMode: boolean = false
+  selectedCreche: boolean = false
+  crecheIdentifier?: string
+  routeUrl!: string;
+  user!: User;
+
+  constructor(
+    private _crechesService: CrechesService,
+    private _authService: AuthService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
     window.addEventListener('resize', () => {
       this.isDesktop = window.innerWidth >= 768;
     });
+
+    if (this.isDesktop)
+      this.sidebarOpened = true;
+
+    this.loadCrecheIsSelected();
+    this.user = this._authService.getUser()!;
+    this.routeUrl = this._router.url;
+  }
+
+  loadCrecheIsSelected() {
+    this._crechesService.selectedCreche.subscribe(c => {
+      if (c) {
+        this.crecheIdentifier = c.identifier;
+        this.selectedCreche = true;
+      }
+    })
   }
 }

@@ -16,11 +16,11 @@ export const COMPONENTS_ROUTES: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: "creches", component: CrechesComponent },
-      { path: "classrooms", component: ClassroomsComponent },
-      { path: "students", component: StudentsComponent },
-      { path: "attendances", component: AttendancesComponent },
-      { path: "dashboard", component: DashboardComponent },
+      { path: 'creches', component: CrechesComponent },
+      { path: 'creches/:id/dashboard', component: DashboardComponent },
+      { path: 'creches/:id/classrooms', component: ClassroomsComponent },
+      { path: 'creches/:id/students', component: StudentsComponent },
+      { path: 'creches/:id/attendances', component: AttendancesComponent },
     ]
   },
 ];

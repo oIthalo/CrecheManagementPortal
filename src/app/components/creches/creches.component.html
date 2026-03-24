@@ -9,6 +9,7 @@
       </div>
 
       <button
+        (click)="openAddCrecheModal()"
         class="bg-linear-to-r from-indigo-600 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition cursor-pointer"
       >
         Nova Creche
@@ -58,6 +59,7 @@
 
         <div class="flex justify-end mt-6">
           <button
+            (click)="navigateToCreche(creche)"
             class="px-4 py-2 rounded-lg text-indigo-700 font-semibold hover:bg-indigo-50 transition flex items-center gap-2 cursor-pointer"
           >
             Entrar
@@ -67,4 +69,9 @@
       </div>
     </section>
   </div>
+
+  <app-create-creche
+    *ngIf="showAddCrecheModal"
+    (close)="closeAddCrecheModal()"
+  ></app-create-creche>
 </div>

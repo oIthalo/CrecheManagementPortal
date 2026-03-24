@@ -1,4 +1,7 @@
+import { TokensDto } from "../dtos/tokens.dto";
+
 export interface User {
-  Username: string,
-  Email: string
+  username: string,
+  email: string,
+  tokens: TokensDto
 }

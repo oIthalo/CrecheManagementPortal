@@ -3,16 +3,20 @@
 >
   <div class="relative flex items-center justify-between px-4 h-16">
     <a
-      routerLink="/creches"
-      routerLinkActive="text-indigo-600"
+      [routerLink]="['/creches']"
+      [ngClass]="{
+        'text-indigo-600': !selectedCreche && routeUrl === '/creches',
+      }"
       class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
     >
-      <lucide-icon [name]="universityIcon" size="20"></lucide-icon>
+      <lucide-icon [name]="schoolIcon" size="20"></lucide-icon>
       <span>Creches</span>
     </a>
 
     <a
-      routerLink="/dashboard"
+      [routerLink]="['/creches', crecheIdentifier, 'dashboard']"
+      [class.opacity-50]="!selectedCreche"
+      [class.pointer-events-none]="!selectedCreche"
       routerLinkActive="text-indigo-600"
       class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
     >
@@ -21,7 +25,9 @@
     </a>
 
     <a
-      routerLink="/classrooms"
+      [routerLink]="['/creches', crecheIdentifier, 'classrooms']"
+      [class.opacity-50]="!selectedCreche"
+      [class.pointer-events-none]="!selectedCreche"
       routerLinkActive="text-indigo-600"
       class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
     >
@@ -30,7 +36,9 @@
     </a>
 
     <a
-      routerLink="/students"
+      [routerLink]="['/creches', crecheIdentifier, 'students']"
+      [class.opacity-50]="!selectedCreche"
+      [class.pointer-events-none]="!selectedCreche"
       routerLinkActive="text-indigo-600"
       class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
     >
@@ -39,7 +47,9 @@
     </a>
 
     <a
-      routerLink="/attendances"
+      [routerLink]="['/creches', crecheIdentifier, 'attendances']"
+      [class.opacity-50]="!selectedCreche"
+      [class.pointer-events-none]="!selectedCreche"
       routerLinkActive="text-indigo-600"
       class="flex flex-col items-center justify-center text-slate-500 text-xs w-16"
     >

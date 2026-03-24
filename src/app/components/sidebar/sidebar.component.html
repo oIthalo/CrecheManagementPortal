@@ -16,14 +16,14 @@
       [ngClass]="sidebarOpened ? 'opacity-100 w-full' : 'opacity-0 w-0'"
     >
       <h2 class="truncate text-lg font-semibold text-indigo-700">
-        {{ user.Username }}
+        {{ user.username }}
       </h2>
       <p class="truncate text-sm text-gray-400">
-        {{ user.Email }}
+        {{ user.email }}
       </p>
     </div>
 
-    <button (click)="sidebarOpened = !sidebarOpened">
+    <button (click)="sidebarOpened = !sidebarOpened" class="cursor-pointer">
       <lucide-icon
         [name]="sidebarOpened ? closeIcon : textAlignJustifyIcon"
         size="28px"
@@ -34,15 +34,16 @@
   <div class="flex flex-col flex-1 py-6 w-full">
     <ul class="flex flex-col w-full px-2 gap-2">
       <a
-        routerLink="/creches"
-        routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        (click)="selectedCreche = false"
+        [routerLink]="['/creches']"
         class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
-        [ngClass]="
-          sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
-        "
+        [ngClass]="{
+          'bg-linear-to-r from-blue-700 to-indigo-800 text-white': !selectedCreche,
+          'gap-3 px-3 py-2': sidebarOpened,
+          'justify-center w-12 h-12 mx-auto': !sidebarOpened,
+        }"
       >
         <lucide-icon [name]="schoolIcon"></lucide-icon>
-
         <span
           class="whitespace-nowrap transition-all duration-200"
           [ngClass]="
@@ -54,8 +55,10 @@
       </a>
 
       <a
-        routerLink="/dashboard"
+        [routerLink]="['/creches', crecheIdentifier, 'dashboard']"
         routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        [class.opacity-50]="!selectedCreche"
+        [class.pointer-events-none]="!selectedCreche"
         class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
         [ngClass]="
           sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
@@ -73,8 +76,10 @@
       </a>
 
       <a
-        routerLink="/classrooms"
+        [routerLink]="['/creches', crecheIdentifier, 'classrooms']"
         routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        [class.opacity-50]="!selectedCreche"
+        [class.pointer-events-none]="!selectedCreche"
         class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
         [ngClass]="
           sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
@@ -92,8 +97,10 @@
       </a>
 
       <a
-        routerLink="/students"
+        [routerLink]="['/creches', crecheIdentifier, 'students']"
         routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        [class.opacity-50]="!selectedCreche"
+        [class.pointer-events-none]="!selectedCreche"
         class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
         [ngClass]="
           sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
@@ -111,8 +118,10 @@
       </a>
 
       <a
-        routerLink="/attendances"
+        [routerLink]="['/creches', crecheIdentifier, 'attendances']"
         routerLinkActive="bg-gradient-to-r from-blue-700 to-indigo-800 text-white"
+        [class.opacity-50]="!selectedCreche"
+        [class.pointer-events-none]="!selectedCreche"
         class="flex items-center rounded-lg text-gray-600 hover:text-white hover:bg-indigo-700 transition-all duration-200"
         [ngClass]="
           sidebarOpened ? 'gap-3 px-3 py-2' : 'justify-center w-12 h-12 mx-auto'
@@ -136,7 +145,6 @@
       class="flex items-center justify-center gap-2 bg-indigo-700 text-white rounded-lg px-3 py-2 w-full"
     >
       <lucide-icon [name]="logoutIcon"></lucide-icon>
-
       <span
         class="whitespace-nowrap transition-all duration-200"
         [ngClass]="

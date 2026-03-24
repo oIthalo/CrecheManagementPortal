@@ -45,7 +45,7 @@ export class RegisterComponent {
           this.authResponse = res.data;
           this.isLoading = false;
 
-          this._authService.saveTokens(this.authResponse.tokens);
+          this._authService.saveUser(this.authResponse);
         },
         error: res => {
           this.errorResponse = res;

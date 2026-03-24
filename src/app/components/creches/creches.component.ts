@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 import { CrecheResponse } from '../../responses/creche/creche.response';
 import { SidebarComponent } from "../sidebar/sidebar.component";
@@ -11,46 +11,69 @@ import {
   MapPin,
   ArrowRight
 } from 'lucide-angular';
+import { CrechesService } from '../../services/creches.service';
+import { ErrorResponse } from '../../responses/default/error.response';
+import { CreateCrecheComponent } from "./create-creche/create-creche.component";
 
 @Component({
   selector: 'app-creches',
   imports: [
     LucideAngularModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    CreateCrecheComponent
 ],
   templateUrl: './creches.component.html'
 })
-export class CrechesComponent {
+export class CrechesComponent implements OnInit {
   readonly schoolIcon = School
   readonly phoneIcon = Phone
   readonly mapPinIcon = MapPin
   readonly arrowRightIcon = ArrowRight
 
-  creches: CrecheResponse[] = [
-    {
-      identifier: 'crch_001',
-      name: 'Creche Pequenos Sonhos',
-      email: 'contato@pequenossonhos.com',
-      contactNumber: '(75) 99123-4567',
-      address: {
-        street: 'Rua das Flores',
-        number: '120',
-        city: 'Santo Antônio de Jesus',
-        state: 'BA'
-      }
-    },
-    {
-      identifier: 'crch_002',
-      name: 'Centro Infantil Mundo Feliz',
-      email: 'mundo.feliz@email.com',
-      contactNumber: '(75) 98876-3321',
-      address: {
-        street: 'Av. Luís Viana',
-        number: '45',
-        city: 'Santo Antônio de Jesus',
-        state: 'BA'
-      }
-    }
-  ]
+  creches: CrecheResponse[] = [];
+  errorResponse?: ErrorResponse;
+  showAddCrecheModal = false;
+  isLoading = false;
+  isError = false;
+
+  constructor(
+    private _crechesService: CrechesService,
+    private _router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.loadCreches();
+  }
+
+  loadCreches() {
+    this.isLoading = true;
+
+    this._crechesService.getCreches()
+      .subscribe({
+        next: res => {
+          this.creches = res?.data ?? [];
+          this.isLoading = false;
+        },
+        error: res => {
+          this.errorResponse = res;
+          this.isLoading = false;
+          this.isError = true;
+        }
+      })
+  }
+
+  openAddCrecheModal() {
+    this.showAddCrecheModal = true;
+  }
+
+  closeAddCrecheModal() {
+    this.showAddCrecheModal = false;
+    this.loadCreches();
+  }
+
+  navigateToCreche(creche: CrecheResponse) {
+    this._crechesService.setSelectedCreche(creche);
+    this._router.navigate(["creches", creche.identifier, "dashboard"])
+  }
 }
