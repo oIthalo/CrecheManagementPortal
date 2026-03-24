@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { RegisterRequest } from '../../../requests/auth/register.request';
 import { AuthResponse } from '../../../responses/auth/auth.response';
 import { ErrorResponse } from '../../../responses/default/error.response';
-import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -18,28 +19,41 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterComponent {
   request: RegisterRequest = {
-    username: "",
     email: "",
     password: "",
+    username: "",
     keepalive: false
   };
 
-  successResponse: AuthResponse = {
-    email: "",
-    username: "",
-    tokens: {
-      accessToken: "",
-      refreshToken: ""
-    }
-  };
-
-  errorResponse: ErrorResponse = {
-    errorMessage: "",
-    errorCode: "",
-    statusCode: 0,
-    errors: []
-  }
-
+  authResponse?: AuthResponse;
+  errorResponse?: ErrorResponse;
   isLoading = false
   isError = false
+
+  constructor(
+    private _authService: AuthService,
+    private _router: Router
+  ) { }
+
+  onSubmit() {
+    this.isLoading = true;
+
+    this._authService
+      .register(this.request)
+      .subscribe({
+        next: res => {
+          this.authResponse = res.data;
+          this.isLoading = false;
+
+          this._authService.saveTokens(this.authResponse.tokens);
+        },
+        error: res => {
+          this.errorResponse = res;
+          this.isLoading = false;
+          this.isError = true;
+        }
+      })
+
+      this._router.navigate(["/creches"])
+  }
 }

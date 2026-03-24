@@ -10,7 +10,6 @@
   <div
     class="relative z-10 w-full xl:max-w-6xl xl:flex xl:rounded-3xl xl:shadow-2xl xl:overflow-hidden mx-auto"
   >
-    <!-- IMAGEM DO TOPO FORM -->
     <div class="xl:hidden w-full">
       <img
         src="assets/criancas.png"
@@ -19,11 +18,10 @@
       />
     </div>
 
-    <!-- FORMULARIO -->
     <div
       class="w-full bg-gray-50 xl:w-1/2 flex items-center justify-center p-6 px-10 xl:p-20"
     >
-      <form #form="ngForm" class="w-full max-w-md space-y-6 mt-10 xl:mt-5">
+      <form #form="ngForm" (ngSubmit)="onSubmit()" class="w-full max-w-md space-y-6 mt-10 xl:mt-5">
         <h1
           class="text-3xl md:text-4xl font-bold bg-linear-to-r from-blue-700 to-indigo-800 bg-clip-text text-transparent text-center"
         >
@@ -69,7 +67,6 @@
           />
         </div>
 
-        <!-- CHECKBOX -->
         <div class="flex items-center">
           <label
             class="relative flex cursor-pointer items-center rounded-full mr-1"
@@ -106,7 +103,6 @@
           </label>
         </div>
 
-        <!-- BOTAO -->
         <button
           type="submit"
           class="w-full py-3 rounded-xl text-white font-semibold bg-linear-to-r from-blue-700 to-indigo-800 hover:from-blue-800 hover:to-indigo-900 shadow-lg hover:shadow-xl transition cursor-pointer"
@@ -126,7 +122,6 @@
       </form>
     </div>
 
-    <!-- LADO DIREITO -->
     <div
       class="hidden xl:flex xl:w-1/2 flex-col items-center justify-center p-20 bg-linear-to-br from-blue-700 via-blue-800 to-indigo-900 text-white"
     >
