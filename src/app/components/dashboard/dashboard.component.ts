@@ -8,6 +8,9 @@ import {
   School
 } from 'lucide-angular';
 import { CrecheResponse } from '../../responses/creche/creche.response';
+import { CrechesService } from '../../services/creches.service';
+import { Router } from '@angular/router';
+import { ErrorResponse } from '../../responses/default/error.response';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,66 +22,57 @@ import { CrecheResponse } from '../../responses/creche/creche.response';
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
-  readonly schoolIcon = School
+  readonly schoolIcon = School;
 
-  dashboard!: DashboardResponse
-  creche!: CrecheResponse
+  errorResponse?: ErrorResponse
+  dashboard!: DashboardResponse;
+  creche!: CrecheResponse;
+  isLoading = false;
+  isError = false;
+
+  constructor(
+    private _crecheService: CrechesService,
+    private _router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.loadDashboard()
+    this.loadCreche();
+    this.loadDashboard();
   }
 
   loadDashboard() {
-    this.dashboard = {
-      crecheName: 'Creche Alegria',
-      totalStudents: 120,
-      totalClassrooms: 6,
-      presentToday: 95,
-      absentToday: 25,
-      attendanceRate: 79,
-      classrooms: [
-        {
-          id: '1',
-          name: 'Maternal I',
-          totalStudents: 20,
-          present: 16,
-          absent: 4
-        },
-        {
-          id: '2',
-          name: 'Maternal II',
-          totalStudents: 22,
-          present: 18,
-          absent: 4
-        },
-        {
-          id: '3',
-          name: 'Jardim I',
-          totalStudents: 18,
-          present: 14,
-          absent: 4
-        },
-        {
-          id: '4',
-          name: 'Jardim II',
-          totalStudents: 25,
-          present: 20,
-          absent: 5
-        }
-      ]
-    }
+    this.isLoading = true;
 
-    this.creche = {
-      identifier: 'crch_001',
-      name: 'Creche Pequenos Sonhos',
-      email: 'contato@pequenossonhos.com',
-      contactNumber: '(75) 99123-4567',
-      address: {
-        street: 'Rua das Flores',
-        number: '120',
-        city: 'Santo Antônio de Jesus',
-        state: 'BA'
+    this._crecheService.getDashboard(this.creche.identifier)
+      .subscribe({
+        next: res => {
+          this.dashboard = res.data;
+          this.isLoading = false;
+        },
+        error: res => {
+          this.errorResponse = res;
+          this.isError = true;
+          this.isLoading = false;
+        }
+      })
+  }
+
+  loadCreche() {
+    this.isLoading = true;
+
+    this._crecheService.selectedCreche.subscribe({
+      next: res => {
+        if (res) {
+          this.creche = res;
+          this.isLoading = false;
+        }
+        else {
+          this._router.navigate(["/creches"])
+        }
+      },
+      error: () => {
+        this.isError = true;
       }
-    }
+    })
   }
 }

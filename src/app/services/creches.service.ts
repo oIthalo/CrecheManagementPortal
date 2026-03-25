@@ -7,29 +7,35 @@ import { CrecheResponse } from '../responses/creche/creche.response';
 import { BehaviorSubject } from 'rxjs';
 import { CreateCrecheRequest } from '../requests/creche/create-creche.request';
 import { CreatedCrecheResponse } from '../responses/creche/created-creche.response';
+import { DashboardResponse } from '../responses/dashboard/dashboard.response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrechesService {
-  private URL_BASE = environment.api + "/creches"
-  private selectedCrecheSubject = new BehaviorSubject<CrecheResponse | null>(null);
+  private _urlBase = environment.api + "/creches"
+  private _selectedCrecheSubject = new BehaviorSubject<CrecheResponse | null>(null);
   private _keyCurrentCreche = "current_creche_identifier";
 
-  selectedCreche = this.selectedCrecheSubject.asObservable();
+  selectedCreche = this._selectedCrecheSubject.asObservable();
 
   constructor(private _client: HttpClient) { }
 
   getCreches() {
-    return this._client.get<BaseResponse<CrecheResponse[]>>(this.URL_BASE);
+    return this._client.get<BaseResponse<CrecheResponse[]>>(this._urlBase);
+  }
+
+  getDashboard(identifier: string) {
+    var endpoint = `${this._urlBase}/${identifier}/dashboard`
+    return this._client.get<BaseResponse<DashboardResponse>>(endpoint)
   }
 
   createCreche(request: CreateCrecheRequest) {
-    return this._client.post<BaseResponse<CreatedCrecheResponse>>(this.URL_BASE, request);
+    return this._client.post<BaseResponse<CreatedCrecheResponse>>(this._urlBase, request);
   }
 
   deleteCreche(identifier: string) {
-    var endpoint = this.URL_BASE + "/" + identifier
+    var endpoint = `${this._urlBase}/${identifier}`
     return this._client.delete(endpoint);
   }
 
@@ -42,6 +48,6 @@ export class CrechesService {
   }
 
   setSelectedCreche(creche: CrecheResponse) {
-    this.selectedCrecheSubject.next(creche);
+    this._selectedCrecheSubject.next(creche);
   }
 }

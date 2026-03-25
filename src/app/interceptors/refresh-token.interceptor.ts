@@ -9,7 +9,7 @@ export const refreshTokenInterceptor: HttpInterceptorFn = (req, next) => {
   if (!authService.isRefreshLoopActive) {
     authService.isRefreshLoopActive = true;
 
-    interval(115000)
+    interval(6900000)
       .pipe(
         switchMap(() => {
           const tokens = authService.getTokens();
