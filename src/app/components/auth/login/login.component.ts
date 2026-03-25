@@ -42,6 +42,7 @@ export class LoginComponent {
           this.authResponse = res.data;
           this.isLoading = false;
           this._authService.saveUser(this.authResponse);
+          this._router.navigate(["/creches"])
         },
         error: res => {
           this.errorResponse = res;
@@ -50,6 +51,5 @@ export class LoginComponent {
         }
       })
 
-      this._router.navigate(["/creches"])
   }
 }

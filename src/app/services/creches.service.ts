@@ -14,6 +14,7 @@ import { CreatedCrecheResponse } from '../responses/creche/created-creche.respon
 export class CrechesService {
   private URL_BASE = environment.api + "/creches"
   private selectedCrecheSubject = new BehaviorSubject<CrecheResponse | null>(null);
+  private _keyCurrentCreche = "current_creche_identifier";
 
   selectedCreche = this.selectedCrecheSubject.asObservable();
 
@@ -25,6 +26,19 @@ export class CrechesService {
 
   createCreche(request: CreateCrecheRequest) {
     return this._client.post<BaseResponse<CreatedCrecheResponse>>(this.URL_BASE, request);
+  }
+
+  deleteCreche(identifier: string) {
+    var endpoint = this.URL_BASE + "/" + identifier
+    return this._client.delete(endpoint);
+  }
+
+  getCurrentCrecheIdentifier() {
+    return sessionStorage.getItem(this._keyCurrentCreche);
+  }
+
+  setCurrentCrecheIdentifier(identifier: string) {
+    sessionStorage.setItem(this._keyCurrentCreche, identifier);
   }
 
   setSelectedCreche(creche: CrecheResponse) {

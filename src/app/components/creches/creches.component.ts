@@ -9,7 +9,8 @@ import {
   School,
   Phone,
   MapPin,
-  ArrowRight
+  ArrowRight,
+  Trash
 } from 'lucide-angular';
 import { CrechesService } from '../../services/creches.service';
 import { ErrorResponse } from '../../responses/default/error.response';
@@ -22,7 +23,7 @@ import { CreateCrecheComponent } from "./create-creche/create-creche.component";
     CommonModule,
     RouterModule,
     CreateCrecheComponent
-],
+  ],
   templateUrl: './creches.component.html'
 })
 export class CrechesComponent implements OnInit {
@@ -30,10 +31,13 @@ export class CrechesComponent implements OnInit {
   readonly phoneIcon = Phone
   readonly mapPinIcon = MapPin
   readonly arrowRightIcon = ArrowRight
+  readonly trashIcon = Trash
 
+  crecheToDelete?: CrecheResponse | null;
   creches: CrecheResponse[] = [];
   errorResponse?: ErrorResponse;
   showAddCrecheModal = false;
+  showDeleteConfirm = false;
   isLoading = false;
   isError = false;
 
@@ -70,6 +74,29 @@ export class CrechesComponent implements OnInit {
   closeAddCrecheModal() {
     this.showAddCrecheModal = false;
     this.loadCreches();
+  }
+
+  confirmDelete(creche: any) {
+    this.crecheToDelete = creche;
+    this.showDeleteConfirm = true;
+  }
+
+  cancelDelete() {
+    this.crecheToDelete = null;
+    this.showDeleteConfirm = false;
+  }
+
+  delete() {
+    if (!this.crecheToDelete)
+      return;
+
+    this._crechesService.deleteCreche(this.crecheToDelete.identifier).subscribe({
+      next: () => this.loadCreches(),
+    });
+    ;
+
+    this.crecheToDelete = null;
+    this.showDeleteConfirm = false;
   }
 
   navigateToCreche(creche: CrecheResponse) {

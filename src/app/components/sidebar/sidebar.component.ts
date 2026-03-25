@@ -44,7 +44,7 @@ export class SidebarComponent implements OnInit {
   sidebarOpened: boolean = false
   darkMode: boolean = false
   selectedCreche: boolean = false
-  crecheIdentifier?: string
+  crecheIdentifier?: string | null
   routeUrl!: string;
   user!: User;
 
@@ -63,8 +63,13 @@ export class SidebarComponent implements OnInit {
       this.sidebarOpened = true;
 
     this.loadCrecheIsSelected();
-    this.user = this._authService.getUser()!;
+
     this.routeUrl = this._router.url;
+    this.user = this._authService.getUser()!;
+    this.crecheIdentifier = this._crechesService.getCurrentCrecheIdentifier();
+
+    if (!this.routeUrl.endsWith("/creches"))
+      this.selectedCreche = true;
   }
 
   loadCrecheIsSelected() {
@@ -72,6 +77,8 @@ export class SidebarComponent implements OnInit {
       if (c) {
         this.crecheIdentifier = c.identifier;
         this.selectedCreche = true;
+
+        this._crechesService.setCurrentCrecheIdentifier(c.identifier);
       }
     })
   }
