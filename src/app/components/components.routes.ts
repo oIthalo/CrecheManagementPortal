@@ -19,10 +19,10 @@ export const COMPONENTS_ROUTES: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'creches', component: CrechesComponent, canActivate: [authGuard] },
-      { path: 'creches/:id/dashboard', component: DashboardComponent, canActivate: [authGuard] },
-      { path: 'creches/:id/classrooms', component: ClassroomsComponent, canActivate: [authGuard] },
-      { path: 'creches/:id/students', component: StudentsComponent, canActivate: [authGuard] },
-      { path: 'creches/:id/attendances', component: AttendancesComponent, canActivate: [authGuard] },
+      { path: 'creches/:crecheIdentifier/dashboard', component: DashboardComponent, canActivate: [authGuard] },
+      { path: 'creches/:crecheIdentifier/classrooms', component: ClassroomsComponent, canActivate: [authGuard] },
+      { path: 'creches/:crecheIdentifier/students', component: StudentsComponent, canActivate: [authGuard] },
+      { path: 'creches/:crecheIdentifier/attendances', component: AttendancesComponent, canActivate: [authGuard] },
     ]
   },
 ];

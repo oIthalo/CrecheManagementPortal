@@ -15,6 +15,7 @@ import {
 import { CrechesService } from '../../services/creches.service';
 import { ErrorResponse } from '../../responses/default/error.response';
 import { CreateCrecheComponent } from "./create-creche/create-creche.component";
+import { ToastComponent } from "../toast/toast.component";
 
 @Component({
   selector: 'app-creches',
@@ -22,8 +23,9 @@ import { CreateCrecheComponent } from "./create-creche/create-creche.component";
     LucideAngularModule,
     CommonModule,
     RouterModule,
-    CreateCrecheComponent
-  ],
+    CreateCrecheComponent,
+    ToastComponent
+],
   templateUrl: './creches.component.html'
 })
 export class CrechesComponent implements OnInit {
@@ -40,6 +42,9 @@ export class CrechesComponent implements OnInit {
   showDeleteConfirm = false;
   isLoading = false;
   isError = false;
+  toastMessage = '';
+  toastType: 'success' | 'error' | 'info' = 'info';
+  toastTrigger = 0;
 
   constructor(
     private _crechesService: CrechesService,
@@ -91,16 +96,39 @@ export class CrechesComponent implements OnInit {
       return;
 
     this._crechesService.deleteCreche(this.crecheToDelete.identifier).subscribe({
-      next: () => this.loadCreches(),
-    });
-    ;
+      next: () => {
+        this.loadCreches();
 
-    this.crecheToDelete = null;
-    this.showDeleteConfirm = false;
+        this.toastType = 'success';
+        this.toastMessage = 'Creche removida com sucesso';
+        this.toastTrigger++;
+
+        this.crecheToDelete = null;
+        this.showDeleteConfirm = false;
+      },
+      error: () => {
+        this.toastType = 'error';
+        this.toastMessage = 'Erro ao remover creche';
+        this.toastTrigger++;
+      }
+    });
+  }
+
+  onCrecheCreated() {
+    this.toastType = 'success';
+    this.toastMessage = 'Creche criada com sucesso';
+    this.toastTrigger++;
+  }
+
+  onCrecheCreatedError() {
+    this.toastType = 'error';
+    this.toastMessage = 'Erro ao registrar nova creche';
+    this.toastTrigger++;
   }
 
   navigateToCreche(creche: CrecheResponse) {
     this._crechesService.setSelectedCreche(creche);
-    this._router.navigate(["creches", creche.identifier, "dashboard"])
+    this._crechesService.setCurrentCrecheIdentifier(creche.identifier);
+    this._router.navigate(["creches", creche.identifier, "dashboard"]);
   }
 }

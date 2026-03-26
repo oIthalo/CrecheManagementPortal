@@ -13,66 +13,175 @@
     </header>
 
     <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4">
-      <input
-        formControlName="name"
-        placeholder="Nome"
-        class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-      />
-      <input
-        formControlName="cnpj"
-        placeholder="CNPJ"
-        class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-      />
-      <input
-        formControlName="email"
-        placeholder="Email"
-        class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-      />
-      <input
-        formControlName="contactNumber"
-        placeholder="Telefone"
-        class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-      />
+      <div>
+        <input
+          formControlName="name"
+          placeholder="Nome"
+          class="border border-slate-300 rounded-xl px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <p class="text-red-500 text-xs mt-1 h-4">
+          {{
+            form.get("name")?.touched && form.get("name")?.invalid
+              ? "Nome obrigatório"
+              : ""
+          }}
+        </p>
+      </div>
+
+      <div>
+        <input
+          formControlName="cnpj"
+          placeholder="CNPJ"
+          class="border border-slate-300 rounded-xl px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <p class="text-red-500 text-xs mt-1 h-4">
+          {{
+            form.get("cnpj")?.touched && form.get("cnpj")?.invalid
+              ? "CNPJ inválido"
+              : ""
+          }}
+        </p>
+      </div>
+
+      <div>
+        <input
+          formControlName="email"
+          placeholder="Email"
+          class="border border-slate-300 rounded-xl px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <p class="text-red-500 text-xs mt-1 h-4">
+          {{
+            form.get("email")?.touched &&
+            form.get("email")?.errors?.["required"]
+              ? "Email obrigatório"
+              : form.get("email")?.touched &&
+                  form.get("email")?.errors?.["email"]
+                ? "Email inválido"
+                : ""
+          }}
+        </p>
+      </div>
+
+      <div>
+        <input
+          formControlName="contactNumber"
+          placeholder="Telefone"
+          class="border border-slate-300 rounded-xl px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <p class="text-red-500 text-xs mt-1 h-4">
+          {{
+            form.get("contactNumber")?.touched &&
+            form.get("contactNumber")?.invalid
+              ? "Telefone obrigatório"
+              : ""
+          }}
+        </p>
+      </div>
 
       <div formGroupName="address" class="grid grid-cols-2 gap-3">
-        <input
-          formControlName="zipCode"
-          placeholder="CEP"
-          class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-        <input
-          formControlName="state"
-          placeholder="Estado"
-          class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-        <input
-          formControlName="city"
-          placeholder="Cidade"
-          class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-        <input
-          formControlName="district"
-          placeholder="Bairro"
-          class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-        <input
-          formControlName="street"
-          placeholder="Rua"
-          class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-        <input
-          formControlName="number"
-          placeholder="Número"
-          class="border border-slate-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
+        <div>
+          <input
+            formControlName="zipCode"
+            placeholder="CEP"
+            class="border border-slate-300 rounded-xl px-4 py-2 w-full"
+          />
+          <p class="text-red-500 text-xs mt-1 h-4">
+            {{
+              form.get("address.zipCode")?.touched &&
+              form.get("address.zipCode")?.invalid
+                ? "CEP inválido"
+                : ""
+            }}
+          </p>
+        </div>
+
+        <div>
+          <input
+            formControlName="state"
+            placeholder="Estado"
+            class="border border-slate-300 rounded-xl px-4 py-2 w-full"
+          />
+          <p class="text-red-500 text-xs mt-1 h-4">
+            {{
+              form.get("address.state")?.touched &&
+              form.get("address.state")?.invalid
+                ? "Obrigatório"
+                : ""
+            }}
+          </p>
+        </div>
+
+        <div>
+          <input
+            formControlName="city"
+            placeholder="Cidade"
+            class="border border-slate-300 rounded-xl px-4 py-2 w-full"
+          />
+          <p class="text-red-500 text-xs mt-1 h-4">
+            {{
+              form.get("address.city")?.touched &&
+              form.get("address.city")?.invalid
+                ? "Obrigatório"
+                : ""
+            }}
+          </p>
+        </div>
+
+        <div>
+          <input
+            formControlName="district"
+            placeholder="Bairro"
+            class="border border-slate-300 rounded-xl px-4 py-2 w-full"
+          />
+          <p class="text-red-500 text-xs mt-1 h-4">
+            {{
+              form.get("address.district")?.touched &&
+              form.get("address.district")?.invalid
+                ? "Obrigatório"
+                : ""
+            }}
+          </p>
+        </div>
+
+        <div>
+          <input
+            formControlName="street"
+            placeholder="Rua"
+            class="border border-slate-300 rounded-xl px-4 py-2 w-full"
+          />
+          <p class="text-red-500 text-xs mt-1 h-4">
+            {{
+              form.get("address.street")?.touched &&
+              form.get("address.street")?.invalid
+                ? "Obrigatório"
+                : ""
+            }}
+          </p>
+        </div>
+
+        <div>
+          <input
+            formControlName="number"
+            placeholder="Número"
+            class="border border-slate-300 rounded-xl px-4 py-2 w-full"
+          />
+          <p class="text-red-500 text-xs mt-1 h-4">
+            {{
+              form.get("address.number")?.touched &&
+              form.get("address.number")?.invalid
+                ? "Obrigatório"
+                : ""
+            }}
+          </p>
+        </div>
       </div>
 
       <button
         type="submit"
         [disabled]="form.invalid || isLoading"
-        class="mt-4 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        class="mt-4 bg-linear-to-r from-indigo-600 to-blue-700 text-white py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Adicionar
+        {{ isLoading ? "Adicionando..." : "Adicionar" }}
       </button>
     </form>
   </div>

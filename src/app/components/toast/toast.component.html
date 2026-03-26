@@ -1,0 +1,9 @@
+<div
+  *ngIf="visible"
+  class="fixed bottom-6 right-6 z-50 px-6 py-4 rounded-2xl shadow-2xl text-white w-[90vw] sm:w-95 md:w-105 lg:w-120 backdrop-blur-md border border-white/20 wrap-break-word"
+  [ngClass]="[bgColor, animationClass]"
+>
+  <p class="text-[18px] font-medium leading-snug wrap-break-word">
+    {{ message }}
+  </p>
+</div>

@@ -25,6 +25,11 @@ export class CrechesService {
     return this._client.get<BaseResponse<CrecheResponse[]>>(this._urlBase);
   }
 
+  getCreche(identifier: string) {
+    var endpoint = `${this._urlBase}/${identifier}`
+    return this._client.get<BaseResponse<CrecheResponse>>(endpoint);
+  }
+
   getDashboard(identifier: string) {
     var endpoint = `${this._urlBase}/${identifier}/dashboard`
     return this._client.get<BaseResponse<DashboardResponse>>(endpoint)

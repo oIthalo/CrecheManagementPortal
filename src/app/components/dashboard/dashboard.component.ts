@@ -9,7 +9,7 @@ import {
 } from 'lucide-angular';
 import { CrecheResponse } from '../../responses/creche/creche.response';
 import { CrechesService } from '../../services/creches.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorResponse } from '../../responses/default/error.response';
 
 @Component({
@@ -26,24 +26,42 @@ export class DashboardComponent implements OnInit {
 
   errorResponse?: ErrorResponse
   dashboard!: DashboardResponse;
+  crecheIdentifier!: string;
   creche!: CrecheResponse;
   isLoading = false;
   isError = false;
 
   constructor(
-    private _crecheService: CrechesService,
-    private _router: Router
+    private _crechesService: CrechesService,
+    private _router: Router,
   ) { }
 
   ngOnInit(): void {
-    this.loadCreche();
-    this.loadDashboard();
+    this.crecheIdentifier = this._crechesService.getCurrentCrecheIdentifier()!;
+    this.loadCrecheAndDashboard();
+  }
+
+  loadCrecheAndDashboard() {
+    this.isLoading = true;
+
+    if (this.crecheIdentifier) {
+      this._crechesService.getCreche(this.crecheIdentifier).subscribe({
+        next: res => {
+          this.creche = res.data;
+          this.isLoading = false;
+          this.loadDashboard();
+        },
+        error: () => this._router.navigate(['/creches'])
+      })
+    } else {
+      this._router.navigate(['/creches']);
+    }
   }
 
   loadDashboard() {
     this.isLoading = true;
 
-    this._crecheService.getDashboard(this.creche.identifier)
+    this._crechesService.getDashboard(this.crecheIdentifier)
       .subscribe({
         next: res => {
           this.dashboard = res.data;
@@ -55,24 +73,5 @@ export class DashboardComponent implements OnInit {
           this.isLoading = false;
         }
       })
-  }
-
-  loadCreche() {
-    this.isLoading = true;
-
-    this._crecheService.selectedCreche.subscribe({
-      next: res => {
-        if (res) {
-          this.creche = res;
-          this.isLoading = false;
-        }
-        else {
-          this._router.navigate(["/creches"])
-        }
-      },
-      error: () => {
-        this.isError = true;
-      }
-    })
   }
 }

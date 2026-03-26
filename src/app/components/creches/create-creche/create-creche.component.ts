@@ -18,6 +18,8 @@ import { ErrorResponse } from '../../../responses/default/error.response';
 })
 export class CreateCrecheComponent {
   @Output() close = new EventEmitter<void>();
+  @Output() success = new EventEmitter<void>();
+  @Output() error = new EventEmitter<void>();
 
   form: FormGroup;
   errorResponse?: ErrorResponse
@@ -56,11 +58,13 @@ export class CreateCrecheComponent {
       next: () => {
         this.isLoading = false;
         this.closeModal();
+        this.success.emit();
       },
       error: res => {
         this.errorResponse = res
         this.isLoading = false;
         this.isError = true;
+        this.error.emit();
       }
     });
   }

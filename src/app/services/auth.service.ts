@@ -89,6 +89,8 @@ export class AuthService {
     localStorage.removeItem(this._keyUser);
     localStorage.removeItem(this._keyAccessToken);
     localStorage.removeItem(this._keyRefreshToken);
+
+    window.location.reload();
   }
 
   saveUser(request: AuthResponse) {

@@ -16,7 +16,66 @@
       </button>
     </header>
 
-    <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+    <section
+      *ngIf="isLoading"
+      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+    >
+      <div
+        *ngFor="let i of [1, 2, 3, 4, 5, 6]"
+        class="animate-pulse bg-white rounded-2xl border border-slate-200 p-6"
+      >
+        <div class="flex items-start gap-4">
+          <div class="w-14 h-14 rounded-xl bg-slate-200"></div>
+
+          <div class="flex-1 space-y-2">
+            <div class="h-4 bg-slate-200 rounded w-2/3"></div>
+            <div class="h-3 bg-slate-200 rounded w-1/2"></div>
+          </div>
+        </div>
+
+        <div class="mt-6 space-y-2">
+          <div class="h-3 bg-slate-200 rounded w-3/4"></div>
+          <div class="h-3 bg-slate-200 rounded w-2/3"></div>
+        </div>
+
+        <div class="flex justify-between mt-6">
+          <div class="h-8 w-20 bg-slate-200 rounded"></div>
+          <div class="h-8 w-20 bg-slate-200 rounded"></div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      *ngIf="!isLoading && creches.length === 0"
+      class="flex flex-col items-center justify-center py-20 text-center"
+    >
+      <div
+        class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center mb-4"
+      >
+        <lucide-icon [name]="schoolIcon" class="text-indigo-600"></lucide-icon>
+      </div>
+
+      <h2 class="text-xl font-semibold text-slate-800">
+        Nenhuma creche encontrada
+      </h2>
+
+      <p class="text-slate-500 mt-2 max-w-sm">
+        Você ainda não possui nenhuma creche cadastrada. Comece criando uma nova
+        agora.
+      </p>
+
+      <button
+        (click)="openAddCrecheModal()"
+        class="mt-6 bg-linear-to-r from-indigo-600 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition cursor-pointer"
+      >
+        Criar primeira creche
+      </button>
+    </section>
+
+    <section
+      *ngIf="!isLoading && creches.length > 0"
+      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+    >
       <div
         *ngFor="let creche of creches"
         class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex flex-col justify-between"
@@ -81,6 +140,8 @@
   <app-create-creche
     *ngIf="showAddCrecheModal"
     (close)="closeAddCrecheModal()"
+    (success)="onCrecheCreated()"
+    (error)="onCrecheCreatedError()"
   ></app-create-creche>
 </div>
 
@@ -110,3 +171,9 @@
     </div>
   </div>
 </div>
+
+<app-toast
+  [message]="toastMessage"
+  [type]="toastType"
+  [trigger]="toastTrigger">
+</app-toast>
